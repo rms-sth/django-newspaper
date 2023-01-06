@@ -1,0 +1,75 @@
+{% extends "aznews/base.html" %}
+
+{% block content %}
+  <!-- About US Start -->
+  <div class="about-area">
+    <div class="container">
+      <!-- put trending here -->
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- Trending Tittle -->
+          <div class="about-right mb-90">
+            <div class="about-img">
+              <img src="{{ post.featured_image.url }}"
+                   alt="{{ post.featured_image.title }}">
+            </div>
+            <div class="section-tittle mb-30 pt-30">
+              <h3>{{ post.title }}</h3>
+            </div>
+            <div>
+              {% if user.is_authenticated %}
+                <a href="{% url 'post-update' post.pk %}" class="btn btn-success">Edit</a>
+                <a href="{% url 'post-delete' post.pk %}" class="btn btn-danger">Delete</a>
+              {% endif %}
+            </div>
+            <div align="justify">{{ post.content | linebreaksbr }}</div>
+          </div>
+          <div class="social-share pt-30">
+            <div class="section-tittle">
+              <h3 class="mr-20">Share:</h3>
+              <ul>
+                <li>
+                  <a href="#">
+                    <img src="assets/img/news/icon-ins.png" alt="">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="assets/img/news/icon-fb.png" alt="">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="assets/img/news/icon-tw.png" alt="">
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <img src="assets/img/news/icon-yo.png" alt="">
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                   role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% include "aznews/comment.html" %}
+      </div>
+ 
+    </div>
+  </div>
+</div>
+<!-- About US End -->
+{% endblock content %}
