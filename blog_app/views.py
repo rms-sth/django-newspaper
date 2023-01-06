@@ -50,7 +50,16 @@ class PostDetailView(DetailView):
         obj.save()
         context = super().get_context_data(**kwargs)
         context["comments"] = obj.comment_set.all()[:10]
-        print(context["comments"])
+        context["previous_post"] = Post.objects.filter(
+            id__lt=obj.id,
+            status="active",
+            published_at__isnull=False,
+        ).first()
+        context["next_post"] = Post.objects.filter(
+            id__gt=obj.id,
+            status="active",
+            published_at__isnull=False,
+        ).first()
         return context
 
 

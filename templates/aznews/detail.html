@@ -8,12 +8,12 @@
         <div class="col-lg-8 posts-list">
           <div class="single-post">
             <div class="feature-img">
-              <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+              <img class="img-fluid"
+                   src="{{ post.featured_image.url }}"
+                   alt="{{ post.title }}">
             </div>
             <div class="blog_details">
-              <h2>
-                {{ post.title }}
-              </h2>
+              <h2>{{ post.title }}</h2>
               <ul class="blog-info-link mt-3 mb-4">
                 <li>
                   <a href="#"><i class="fa fa-user"></i>@{{ post.author.username }}</a>
@@ -54,45 +54,54 @@
             </div>
             <div class="navigation-area">
               <div class="row">
-                <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                  <div class="thumb">
-                    <a href="#">
-                      <img class="img-fluid" src="assets/img/post/preview.png" alt="">
-                    </a>
+                {% if previous_post %}
+                  <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                    <div class="thumb">
+                      <a href="{% url 'post-detail' previous_post.pk %}">
+                        <img class="img-fluid"
+                             src="{{ previous_post.featured_image.url }}"
+                             alt="{{ previous_post.title }}">
+                      </a>
+                    </div>
+                    <div class="arrow">
+                      <a href="#">
+                        <span class="lnr text-white ti-arrow-left"></span>
+                      </a>
+                    </div>
+                    <div class="detials">
+                      <p>Prev Post</p>
+                      <a href="{% url 'post-detail' previous_post.pk %}">
+                        <h4>{{ previous_post.title|truncatechars:50 }}</h4>
+                      </a>
+                    </div>
                   </div>
-                  <div class="arrow">
-                    <a href="#">
-                      <span class="lnr text-white ti-arrow-left"></span>
-                    </a>
+                {% endif %}
+                {% if next_post %}
+                  <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                    <div class="detials">
+                      <p>Next Post</p>
+                      <a href="{% url 'post-detail' next_post.pk %}">
+                        <h4>{{ next_post.title|truncatechars:50 }}</h4>
+                      </a>
+                    </div>
+                    <div class="arrow">
+                      <a href="#">
+                        <span class="lnr text-white ti-arrow-right"></span>
+                      </a>
+                    </div>
+                    <div class="thumb">
+                      <a href="{% url 'post-detail' next_post.pk %}">
+                        <img class="img-fluid"
+                             src="{{ next_post.featured_image.url }}"
+                             alt="{{ next_post.title }}">
+                      </a>
+                    </div>
                   </div>
-                  <div class="detials">
-                    <p>Prev Post</p>
-                    <a href="#">
-                      <h4>Space The Final Frontier</h4>
-                    </a>
-                  </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                  <div class="detials">
-                    <p>Next Post</p>
-                    <a href="#">
-                      <h4>Telescopes 101</h4>
-                    </a>
-                  </div>
-                  <div class="arrow">
-                    <a href="#">
-                      <span class="lnr text-white ti-arrow-right"></span>
-                    </a>
-                  </div>
-                  <div class="thumb">
-                    <a href="#">
-                      <img class="img-fluid" src="assets/img/post/next.png" alt="">
-                    </a>
-                  </div>
-                </div>
+                {% endif %}
               </div>
             </div>
           </div>
+ 
           <div class="blog-author">
             <div class="media align-items-center">
               <img src="assets/img/blog/author.png" alt="">
