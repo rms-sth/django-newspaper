@@ -49,7 +49,7 @@ class PostDetailView(DetailView):
         obj.views_count += 1
         obj.save()
         context = super().get_context_data(**kwargs)
-        context["comments"] = obj.comment_set.all()[:10]
+        context["comments"] = obj.comment_set.all().order_by('-created_at')[:10]
         context["previous_post"] = Post.objects.filter(
             id__lt=obj.id,
             status="active",
