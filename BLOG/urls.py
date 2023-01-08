@@ -22,6 +22,7 @@ from django.urls import include, path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("blog_app.urls")),
+    path("api/", include("api.urls")),
     path(
         "accounts/login/",
         auth_views.LoginView.as_view(),
